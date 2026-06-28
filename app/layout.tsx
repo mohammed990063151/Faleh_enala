@@ -12,19 +12,25 @@ export const viewport: Viewport = {
 const tajawal = Tajawal({
   variable: "--font-tajawal",
   subsets: ["arabic", "latin"],
-  weight: ["300", "400", "500", "700", "800"],
+  weight: ["400", "700"],
+  display: "swap",
+  preload: true,
 });
 
 const amiri = Amiri({
   variable: "--font-amiri",
-  subsets: ["arabic", "latin"],
+  subsets: ["arabic"],
   weight: ["400", "700"],
+  display: "swap",
+  preload: true,
 });
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  weight: ["400"],
+  display: "swap",
+  preload: false,
 });
 
 export default function RootLayout({

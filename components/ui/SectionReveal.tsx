@@ -23,10 +23,10 @@ export function SectionReveal({
   const { isRtl } = useLanguage();
 
   const directionMap = {
-    up: { y: 50, x: 0 },
-    down: { y: -50, x: 0 },
-    left: { y: 0, x: isRtl ? 50 : -50 },
-    right: { y: 0, x: isRtl ? -50 : 50 },
+    up: { y: 16, x: 0 },
+    down: { y: -16, x: 0 },
+    left: { y: 0, x: isRtl ? 16 : -16 },
+    right: { y: 0, x: isRtl ? -16 : 16 },
     none: { y: 0, x: 0 },
   };
   const offset = directionMap[direction];
@@ -35,8 +35,8 @@ export function SectionReveal({
     <motion.div
       ref={ref}
       initial={{ opacity: 0, ...offset }}
-      animate={isInView ? { opacity: 1, y: 0, x: 0 } : { opacity: 0, ...offset }}
-      transition={{ duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] }}
+      animate={isInView ? { opacity: 1, y: 0, x: 0 } : { opacity: 1, y: 0, x: 0 }}
+      transition={{ duration: 0.35, delay, ease: "easeOut" }}
       className={cn(className)}
     >
       {children}

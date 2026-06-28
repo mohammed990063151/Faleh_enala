@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/components/providers/LanguageProvider";
 
@@ -18,92 +17,92 @@ const navHrefs = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { scrollY } = useScroll();
-  const { t, locale, setLocale } = useLanguage();
+  const { t, setLocale, locale } = useLanguage();
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    setScrolled(latest > 50);
-  });
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const toggleLocale = () => setLocale(locale === "ar" ? "en" : "ar");
 
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+    <header
       className={cn(
-        "fixed top-0 right-0 left-0 z-50 transition-all duration-500",
+        "fixed top-0 right-0 left-0 z-50 transition-colors duration-300",
         scrolled
-          ? "bg-[#030014]/85 backdrop-blur-2xl border-b border-gold/10 shadow-[0_4px_30px_rgba(0,0,0,0.4),0_1px_0_rgba(201,169,98,0.06)_inset]"
-          : "bg-transparent"
+          ? "border-b border-gold/10 bg-[#030014]/95 sm:bg-[#030014]/85 sm:backdrop-blur-xl"
+          : "bg-[#030014]/50 sm:bg-transparent"
       )}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-3 py-2.5 sm:gap-4 sm:px-6 sm:py-4">
-        <motion.a
+      <nav className="mx-auto grid max-w-7xl grid-cols-3 items-center gap-1 px-2 py-2 sm:gap-2 sm:px-6 sm:py-4">
+        <button
+          type="button"
+          className="flex h-9 w-9 flex-col items-center justify-center gap-1 justify-self-start xl:hidden"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label={t.nav.menu}
+          aria-expanded={mobileOpen}
+        >
+          <span
+            className={cn(
+              "block h-0.5 w-5 bg-gold transition-transform duration-200",
+              mobileOpen && "translate-y-[5px] rotate-45"
+            )}
+          />
+          <span
+            className={cn(
+              "block h-0.5 w-5 bg-gold transition-opacity duration-200",
+              mobileOpen && "opacity-0"
+            )}
+          />
+          <span
+            className={cn(
+              "block h-0.5 w-5 bg-gold transition-transform duration-200",
+              mobileOpen && "-translate-y-[5px] -rotate-45"
+            )}
+          />
+        </button>
+
+        <a
           href="#hero"
-          className="font-display text-sm font-bold text-gold shrink-0 sm:text-lg md:text-xl"
-          whileHover={{ scale: 1.05 }}
+          className="col-start-2 justify-self-center truncate text-center font-display text-sm font-bold text-gold sm:text-base xl:col-start-1 xl:justify-self-start xl:text-lg md:text-xl"
         >
           {t.nav.brand}
-        </motion.a>
+        </a>
 
-        <ul className="hidden items-center gap-4 xl:gap-6 xl:flex">
+        <ul className="hidden items-center justify-center gap-5 xl:col-start-2 xl:flex xl:gap-6">
           {navHrefs.map((link) => (
             <li key={link.href}>
-              <motion.a
-                href={link.href}
-                className="relative text-sm text-cream/60 hover:text-gold transition-colors"
-                whileHover={{ y: -2 }}
-              >
+              <a href={link.href} className="text-sm text-cream/60 transition-colors hover:text-gold">
                 {t.nav[link.key]}
-              </motion.a>
+              </a>
             </li>
           ))}
         </ul>
 
-        <div className="flex items-center gap-2 sm:gap-3">
-          <motion.button
-            type="button"
-            onClick={toggleLocale}
-            className="rounded-full border border-gold/30 bg-white/[0.04] px-3 py-1 text-[10px] font-medium text-gold backdrop-blur-md shadow-[0_0_20px_rgba(201,169,98,0.1)] hover:bg-gold/10 hover:border-gold/50 transition-all sm:px-4 sm:py-1.5 sm:text-xs"
-            whileTap={{ scale: 0.95 }}
-          >
-            {t.nav.langSwitch}
-          </motion.button>
-
-          <button
-            className="flex flex-col gap-1.5 xl:hidden"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label={t.nav.menu}
-          >
-            <motion.span
-              className="block h-0.5 w-6 bg-gold"
-              animate={mobileOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-            />
-            <motion.span
-              className="block h-0.5 w-6 bg-gold"
-              animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
-            />
-            <motion.span
-              className="block h-0.5 w-6 bg-gold"
-              animate={mobileOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
-            />
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={toggleLocale}
+          className="col-start-3 justify-self-end rounded-full border border-gold/30 bg-white/[0.04] px-2.5 py-1 text-[10px] font-medium text-gold transition-colors hover:border-gold/50 hover:bg-gold/10 sm:px-4 sm:py-1.5 sm:text-xs"
+        >
+          {t.nav.langSwitch}
+        </button>
       </nav>
 
-      <motion.div
-        initial={false}
-        animate={mobileOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
-        className="overflow-hidden xl:hidden"
+      <div
+        className={cn(
+          "overflow-hidden transition-[max-height,opacity] duration-300 xl:hidden",
+          mobileOpen ? "max-h-[420px] opacity-100" : "max-h-0 opacity-0"
+        )}
       >
-        <ul className="border-t border-gold/10 bg-navy-950/95 px-6 py-4 text-center backdrop-blur-xl">
+        <ul className="border-t border-gold/10 bg-[#030014]/98 px-4 py-3 text-center sm:px-6 sm:py-4">
           {navHrefs.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
-                className="block py-3 text-center text-cream/60 transition-colors hover:text-gold"
+                className="block py-2.5 text-sm text-cream/70 transition-colors hover:text-gold sm:py-3"
                 onClick={() => setMobileOpen(false)}
               >
                 {t.nav[link.key]}
@@ -111,7 +110,7 @@ export function Navbar() {
             </li>
           ))}
         </ul>
-      </motion.div>
-    </motion.header>
+      </div>
+    </header>
   );
 }
