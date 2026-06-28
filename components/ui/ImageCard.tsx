@@ -6,9 +6,9 @@ export type ImageCardSize = "hero" | "medium" | "small" | "full";
 export type ImageCardGlow = "gold" | "purple" | "cyan" | "mixed";
 
 const sizeClasses: Record<ImageCardSize, string> = {
-  hero: "w-[100px] xs:w-[120px] sm:w-[175px] md:w-[210px] lg:w-[230px]",
-  medium: "w-full max-w-[120px] xs:max-w-[140px] sm:max-w-[170px] md:max-w-[190px]",
-  small: "w-[72px] xs:w-[80px] sm:w-[110px]",
+  hero: "w-[clamp(150px,52vw,220px)] sm:w-[210px] md:w-[240px] lg:w-[270px]",
+  small: "w-[72px] xs:w-[80px] sm:w-[96px]",
+  medium: "w-[clamp(120px,38vw,160px)] sm:max-w-[180px] md:max-w-[200px]",
   full: "w-full",
 };
 
@@ -27,6 +27,7 @@ interface ImageCardProps {
   className?: string;
   imageClassName?: string;
   priority?: boolean;
+  quality?: number;
   objectPosition?: string;
   caption?: string;
   children?: ReactNode;
@@ -41,6 +42,7 @@ export function ImageCard({
   className,
   imageClassName,
   priority = false,
+  quality,
   objectPosition = "center 15%",
   caption,
   children,
@@ -48,15 +50,17 @@ export function ImageCard({
 }: ImageCardProps) {
   const defaultSizes =
     size === "hero"
-      ? "(max-width: 640px) 135px, (max-width: 1024px) 210px, 230px"
+      ? "(max-width: 640px) 220px, (max-width: 1024px) 240px, 270px"
       : size === "medium"
-        ? "(max-width: 640px) 140px, 190px"
+        ? "(max-width: 640px) 160px, 200px"
         : size === "small"
-          ? "(max-width: 640px) 80px, 110px"
+          ? "(max-width: 640px) 80px, 96px"
           : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw";
 
+  const imageQuality = quality ?? (priority || size === "hero" || size === "medium" ? 85 : 75);
+
   return (
-    <div className={cn("relative mx-auto", sizeClasses[size], className)}>
+    <div className={cn("relative w-full", size !== "full" && "mx-auto", sizeClasses[size], className)}>
       <div className={cn("image-glow-aura", glowClasses[glow])} aria-hidden />
       <div className={cn("image-edge-glow relative overflow-hidden rounded-2xl sm:rounded-3xl", glowClasses[glow])}>
         <div className="relative aspect-[3/4] w-full">
@@ -65,6 +69,7 @@ export function ImageCard({
             alt={alt}
             fill
             priority={priority}
+            quality={imageQuality}
             loading={priority ? undefined : "lazy"}
             sizes={sizes ?? defaultSizes}
             className={cn("object-cover", imageClassName)}

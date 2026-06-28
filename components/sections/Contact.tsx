@@ -18,21 +18,21 @@ export function Contact() {
         <SectionHeader label={t.contact.label} title={t.contact.title} subtitle={t.contact.subtitle} />
 
         <SectionReveal>
-          <div className="rounded-2xl luxury-card luxury-card-glow p-5 backdrop-blur-md sm:rounded-3xl sm:p-10 md:p-14">
+          <div className="flex flex-col items-center rounded-2xl luxury-card luxury-card-glow p-5 backdrop-blur-md sm:rounded-3xl sm:p-10 md:p-14">
             <ProfilePortrait
               src={profileImage}
               alt={t.hero.name}
               size="medium"
               glow="mixed"
               animated={false}
-              className="mb-5 sm:mb-8"
+              className="mx-auto mb-5 sm:mb-8"
             />
 
-            <h3 className="text-lg font-bold tracking-tight text-cream sm:text-xl md:text-2xl">
+            <h3 className="text-center text-lg font-bold tracking-tight text-cream sm:text-xl md:text-2xl">
               {t.hero.fullName}
             </h3>
-            <p className="mt-1 text-sm font-medium text-shimmer sm:text-base">{t.hero.officialTitle}</p>
-            <p className="mt-2 text-xs text-cream/50 sm:text-sm">{t.hero.location}</p>
+            <p className="mt-1 text-center text-sm font-medium text-shimmer sm:text-base">{t.hero.officialTitle}</p>
+            <p className="mt-2 text-center text-xs text-cream/50 sm:text-sm">{t.hero.location}</p>
 
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:mt-10 sm:gap-4">
               {socialLinks.map((link, i) => (

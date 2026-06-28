@@ -17,15 +17,17 @@ export function Portfolio() {
     <section id="portfolio" className="relative overflow-hidden py-20 sm:py-28 md:py-32">
       <div className="absolute inset-0 bg-[#030014]/90" />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeader label={t.portfolio.label} title={t.portfolio.title} subtitle={t.portfolio.subtitle} />
+      <div className="relative z-10 mx-auto max-w-7xl">
+        <div className="px-3 sm:px-6 lg:px-8">
+          <SectionHeader label={t.portfolio.label} title={t.portfolio.title} subtitle={t.portfolio.subtitle} />
+        </div>
 
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
-          className="grid grid-cols-1 gap-5 xs:grid-cols-2 sm:gap-6 lg:grid-cols-4"
+          className="grid w-full grid-cols-1 gap-3 px-2 xs:grid-cols-2 xs:gap-4 xs:px-3 sm:gap-6 sm:px-6 lg:grid-cols-4 lg:px-8"
         >
           {enalaProperties.map((property, i) => {
             const info = t.portfolio[property.id];
@@ -65,7 +67,7 @@ export function Portfolio() {
           })}
         </motion.div>
 
-        <SectionReveal className="mt-10 text-center sm:mt-12">
+        <SectionReveal className="mt-10 px-3 text-center sm:mt-12 sm:px-6 lg:px-8">
           <Button href="https://enala.sa">{t.portfolio.explore}</Button>
         </SectionReveal>
       </div>

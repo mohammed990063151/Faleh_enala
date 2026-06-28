@@ -27,22 +27,22 @@ export function About() {
               <ProfilePortrait
                 src="/images/profile-smile.png"
                 alt={t.hero.name}
-                size="medium"
+                size="hero"
                 glow="purple"
                 animated={false}
               />
               <LuxuryCard glow className="w-full p-5 sm:p-8 md:p-10">
                 <p className="text-base leading-[1.9] text-cream/80 sm:text-lg md:text-xl">{t.about.bio}</p>
-                <div className="mt-6 flex items-center gap-4 border-t border-gold/10 pt-6 sm:mt-8 sm:pt-8">
+                <div className="mt-6 flex flex-col items-center gap-3 border-t border-gold/10 pt-6 text-center sm:mt-8 sm:flex-row sm:items-center sm:gap-4 sm:pt-8 sm:text-start">
                   <ProfilePortrait
                     src={profileImage}
                     alt={t.about.nickname}
                     size="small"
                     glow="gold"
                     animated={false}
-                    className="mx-0 shrink-0"
+                    className="mx-auto shrink-0 sm:mx-0"
                   />
-                  <div className="min-w-0 text-start">
+                  <div className="min-w-0">
                     <p className="font-semibold text-gold">{t.about.nickname}</p>
                     <p className="text-sm leading-relaxed text-cream/50">{t.about.shortBio}</p>
                   </div>
@@ -72,7 +72,7 @@ export function About() {
         </div>
 
         <SectionReveal className="mt-10 sm:mt-16 md:mt-20">
-          <div className="grid grid-cols-1 gap-4 xs:grid-cols-2 md:grid-cols-3 md:gap-6">
+          <div className="grid w-full grid-cols-1 gap-3 px-2 xs:grid-cols-2 xs:gap-4 xs:px-3 sm:gap-5 sm:px-0 md:grid-cols-3 md:gap-6">
             {galleryImages.map((img, i) => (
               <motion.div
                 key={img.src}
