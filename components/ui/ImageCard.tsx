@@ -6,7 +6,7 @@ export type ImageCardSize = "hero" | "medium" | "small" | "full";
 export type ImageCardGlow = "gold" | "purple" | "cyan" | "mixed";
 
 const sizeClasses: Record<ImageCardSize, string> = {
-  hero: "w-[clamp(150px,52vw,220px)] sm:w-[210px] md:w-[240px] lg:w-[270px]",
+  hero: "w-[clamp(150px,52vw,220px)] sm:w-[210px] md:w-[240px] lg:w-[240px] xl:w-[280px] 2xl:w-[300px]",
   small: "w-[72px] xs:w-[80px] sm:w-[96px]",
   medium: "w-[clamp(120px,38vw,160px)] sm:max-w-[180px] md:max-w-[200px]",
   full: "w-full",
