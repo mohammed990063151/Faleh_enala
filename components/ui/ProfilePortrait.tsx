@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { ImageCard, type ImageCardGlow, type ImageCardSize } from "@/components/ui/ImageCard";
 
@@ -24,36 +24,38 @@ export function ProfilePortrait({
   animated = true,
   glow = "mixed",
 }: ProfilePortraitProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const springX = useSpring(mx, { stiffness: 120, damping: 20 });
-  const springY = useSpring(my, { stiffness: 120, damping: 20 });
-  const rotateY = useTransform(springX, [-40, 40], [3, -3]);
-  const rotateX = useTransform(springY, [-40, 40], [-3, 3]);
+  const [canParallax, setCanParallax] = useState(false);
 
-  const handleMove = (e: React.MouseEvent) => {
-    if (!animated || !ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    mx.set(e.clientX - rect.left - rect.width / 2);
-    my.set(e.clientY - rect.top - rect.height / 2);
-  };
+  useEffect(() => {
+    const finePointer = window.matchMedia("(pointer: fine) and (min-width: 768px)");
+    setCanParallax(finePointer.matches);
+    const onChange = (e: MediaQueryListEvent) => setCanParallax(e.matches);
+    finePointer.addEventListener("change", onChange);
+    return () => finePointer.removeEventListener("change", onChange);
+  }, []);
 
-  const handleLeave = () => {
-    mx.set(0);
-    my.set(0);
-  };
+  const enableParallax = animated && size === "hero" && canParallax;
 
   return (
     <motion.div
-      ref={ref}
       className="relative shrink-0"
-      initial={{ opacity: 0, scale: 0.94 }}
+      initial={{ opacity: 0, scale: 0.96 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-      onMouseMove={handleMove}
-      onMouseLeave={handleLeave}
-      style={animated && size === "hero" ? { rotateY, rotateX, perspective: 900 } : undefined}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      {...(enableParallax
+        ? {
+            onMouseMove: (e: React.MouseEvent<HTMLDivElement>) => {
+              const el = e.currentTarget;
+              const rect = el.getBoundingClientRect();
+              const x = (e.clientX - rect.left - rect.width / 2) / 20;
+              const y = (e.clientY - rect.top - rect.height / 2) / 20;
+              el.style.transform = `perspective(900px) rotateY(${-x}deg) rotateX(${y}deg)`;
+            },
+            onMouseLeave: (e: React.MouseEvent<HTMLDivElement>) => {
+              e.currentTarget.style.transform = "";
+            },
+          }
+        : {})}
     >
       <ImageCard
         src={src}
@@ -61,7 +63,7 @@ export function ProfilePortrait({
         size={size}
         glow={glow}
         priority={priority}
-        className={cn("mx-0", className)}
+        className={cn("mx-0 transition-transform duration-300", className)}
       />
     </motion.div>
   );

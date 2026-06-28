@@ -1,5 +1,3 @@
-"use client";
-
 import { type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
@@ -40,7 +38,7 @@ export function SectionWrapper({
   spotlight = "top",
 }: SectionWrapperProps) {
   return (
-    <section id={id} className={cn("relative py-20 md:py-28 lg:py-36 overflow-hidden", className)}>
+    <section id={id} className={cn("relative overflow-hidden py-16 sm:py-24 md:py-28 lg:py-36", className)}>
       {spotlight === "top" && <div className="spotlight-top" aria-hidden />}
       {spotlight === "center" && <div className="spotlight-center" aria-hidden />}
       <div className="section-divider-top" aria-hidden />

@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { galleryImages, profileImage, valueIds } from "@/lib/data";
 import { LuxuryCard, SectionWrapper } from "@/components/ui/LuxuryCard";
 import { SectionHeader, SectionReveal } from "@/components/ui/SectionReveal";
-import { SpaceBackground } from "@/components/ui/SpaceBackground";
 import { ProfilePortrait } from "@/components/ui/ProfilePortrait";
 import { ImageCard, type ImageCardGlow } from "@/components/ui/ImageCard";
 import { staggerContainer } from "@/lib/animations";
@@ -17,8 +16,7 @@ export function About() {
 
   return (
     <SectionWrapper id="about" spotlight="center">
-      <SpaceBackground intensity="subtle" />
-      <div className="absolute inset-0 bg-[#030014]/85" />
+      <div className="absolute inset-0 bg-[#030014]/90" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeader label={t.about.label} title={t.about.title} subtitle={t.about.subtitle} />

@@ -56,7 +56,7 @@ export function SectionHeader({
   align?: "center" | "start";
 }) {
   return (
-    <SectionReveal className={cn("mb-10 sm:mb-14 md:mb-20", align === "center" ? "text-center" : "text-start")}>
+    <SectionReveal className={cn("mb-8 sm:mb-14 md:mb-20", align === "center" ? "text-center" : "text-start")}>
       {label && (
         <span
           className={cn(

@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import type { ReactNode } from "react";
@@ -8,9 +6,9 @@ export type ImageCardSize = "hero" | "medium" | "small" | "full";
 export type ImageCardGlow = "gold" | "purple" | "cyan" | "mixed";
 
 const sizeClasses: Record<ImageCardSize, string> = {
-  hero: "w-[160px] xs:w-[175px] sm:w-[190px] md:w-[210px] lg:w-[230px]",
-  medium: "w-full max-w-[150px] sm:max-w-[170px] md:max-w-[190px]",
-  small: "w-[90px] sm:w-[110px]",
+  hero: "w-[120px] xs:w-[135px] sm:w-[175px] md:w-[210px] lg:w-[230px]",
+  medium: "w-full max-w-[120px] xs:max-w-[140px] sm:max-w-[170px] md:max-w-[190px]",
+  small: "w-[72px] xs:w-[80px] sm:w-[110px]",
   full: "w-full",
 };
 
@@ -50,11 +48,11 @@ export function ImageCard({
 }: ImageCardProps) {
   const defaultSizes =
     size === "hero"
-      ? "(max-width: 640px) 175px, (max-width: 1024px) 210px, 230px"
+      ? "(max-width: 640px) 135px, (max-width: 1024px) 210px, 230px"
       : size === "medium"
-        ? "(max-width: 640px) 150px, 190px"
+        ? "(max-width: 640px) 140px, 190px"
         : size === "small"
-          ? "(max-width: 640px) 90px, 110px"
+          ? "(max-width: 640px) 80px, 110px"
           : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw";
 
   return (
@@ -67,6 +65,7 @@ export function ImageCard({
             alt={alt}
             fill
             priority={priority}
+            loading={priority ? undefined : "lazy"}
             sizes={sizes ?? defaultSizes}
             className={cn("object-cover", imageClassName)}
             style={{ objectPosition }}

@@ -39,10 +39,10 @@ export function Navbar() {
           : "bg-transparent"
       )}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:gap-4 sm:px-6 sm:py-4">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-3 py-2.5 sm:gap-4 sm:px-6 sm:py-4">
         <motion.a
           href="#hero"
-          className="font-display text-base font-bold text-gold shrink-0 sm:text-lg md:text-xl"
+          className="font-display text-sm font-bold text-gold shrink-0 sm:text-lg md:text-xl"
           whileHover={{ scale: 1.05 }}
         >
           {t.nav.brand}
@@ -62,11 +62,11 @@ export function Navbar() {
           ))}
         </ul>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <motion.button
             type="button"
             onClick={toggleLocale}
-            className="rounded-full border border-gold/30 bg-white/[0.04] px-4 py-1.5 text-xs font-medium text-gold backdrop-blur-md shadow-[0_0_20px_rgba(201,169,98,0.1)] hover:bg-gold/10 hover:border-gold/50 transition-all"
+            className="rounded-full border border-gold/30 bg-white/[0.04] px-3 py-1 text-[10px] font-medium text-gold backdrop-blur-md shadow-[0_0_20px_rgba(201,169,98,0.1)] hover:bg-gold/10 hover:border-gold/50 transition-all sm:px-4 sm:py-1.5 sm:text-xs"
             whileTap={{ scale: 0.95 }}
           >
             {t.nav.langSwitch}
@@ -98,12 +98,12 @@ export function Navbar() {
         animate={mobileOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
         className="overflow-hidden xl:hidden"
       >
-        <ul className="border-t border-gold/10 bg-navy-950/95 px-6 py-4 backdrop-blur-xl">
+        <ul className="border-t border-gold/10 bg-navy-950/95 px-6 py-4 text-center backdrop-blur-xl">
           {navHrefs.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
-                className="block py-3 text-cream/60 hover:text-gold transition-colors"
+                className="block py-3 text-center text-cream/60 transition-colors hover:text-gold"
                 onClick={() => setMobileOpen(false)}
               >
                 {t.nav[link.key]}

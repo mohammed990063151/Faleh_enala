@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { enalaProperties } from "@/lib/data";
 import { SectionHeader, SectionReveal } from "@/components/ui/SectionReveal";
-import { SpaceBackground } from "@/components/ui/SpaceBackground";
 import { ImageCard, type ImageCardGlow } from "@/components/ui/ImageCard";
 import { staggerContainer, fadeUp } from "@/lib/animations";
 import { Button } from "@/components/ui/Button";
@@ -16,8 +15,7 @@ export function Portfolio() {
 
   return (
     <section id="portfolio" className="relative overflow-hidden py-20 sm:py-28 md:py-32">
-      <SpaceBackground intensity="subtle" />
-      <div className="absolute inset-0 bg-[#030014]/75" />
+      <div className="absolute inset-0 bg-[#030014]/90" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeader label={t.portfolio.label} title={t.portfolio.title} subtitle={t.portfolio.subtitle} />

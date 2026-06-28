@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { profileImage, socialLinks } from "@/lib/data";
 import { SectionHeader, SectionReveal } from "@/components/ui/SectionReveal";
-import { SpaceBackground } from "@/components/ui/SpaceBackground";
 import { ProfilePortrait } from "@/components/ui/ProfilePortrait";
 import { Button } from "@/components/ui/Button";
 import { useLanguage } from "@/components/providers/LanguageProvider";
@@ -13,8 +12,7 @@ export function Contact() {
 
   return (
     <section id="contact" className="relative overflow-hidden py-20 sm:py-28 md:py-32">
-      <SpaceBackground intensity="subtle" />
-      <div className="absolute inset-0 bg-[#030014]/70" />
+      <div className="absolute inset-0 bg-[#030014]/85" />
 
       <div className="relative z-10 mx-auto max-w-4xl px-4 text-center sm:px-6">
         <SectionHeader label={t.contact.label} title={t.contact.title} subtitle={t.contact.subtitle} />

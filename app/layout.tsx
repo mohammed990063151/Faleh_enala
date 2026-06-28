@@ -1,6 +1,13 @@
 import { Tajawal, Amiri, Playfair_Display } from "next/font/google";
+import type { Viewport } from "next";
 import "./globals.css";
 import { LanguageProvider } from "@/components/providers/LanguageProvider";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
 
 const tajawal = Tajawal({
   variable: "--font-tajawal",
